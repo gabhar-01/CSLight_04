@@ -43,31 +43,28 @@ namespace CSLight52
             }
         }
 
+
+
         static void AddDossier (ref string[] fullName, ref string[] jobPosition)
         {
-            Console.Write("Введите ФИО: ");
-            string[] tempFullName = new string[fullName.Length + 1];
-            
-            for (int i = 0; i < fullName.Length; i++)
-            {
-                tempFullName[i] = fullName[i];
-            }
-
-            tempFullName[tempFullName.Length - 1] = Console.ReadLine();
-            fullName = tempFullName;
-
-            Console.Write("\nВведите должность: ");
-            string[] tempJobPosition = new string[jobPosition.Length + 1];
-
-            for (int i = 0; i < jobPosition.Length; i++)
-            {
-                tempJobPosition[i] = jobPosition[i];
-            }
-
-            tempJobPosition[tempJobPosition.Length - 1] = Console.ReadLine();
-            jobPosition = tempJobPosition;
+            IncreaseDossier(ref fullName, "Введите ФИО: ");
+            IncreaseDossier(ref jobPosition, "\nВведите должность: ");
 
             Console.WriteLine("\nДосье добавлено.");
+        }
+
+        static void IncreaseDossier(ref string[] dossierArray, string input)
+        {
+            Console.Write(input);
+            string[] tempDossierArray = new string[dossierArray.Length + 1];
+
+            for (int i = 0; i < dossierArray.Length; i++)
+            {
+                tempDossierArray[i] = dossierArray[i];
+            }
+
+            tempDossierArray[tempDossierArray.Length - 1] = Console.ReadLine();
+            dossierArray = tempDossierArray;
         }
 
         static void OutputAllDossiers (string[] fullName, string[] jobPosition)
@@ -116,27 +113,12 @@ namespace CSLight52
         {
             int index;
             Console.Write("\nВведите номер досье: ");
-            index = Convert.ToInt32(Console.ReadLine());
+            index = Convert.ToInt32(Console.ReadLine()) - 1;
 
-            string[] tempFullName = new string[fullName.Length - 1];
-            string[] tempJobPosition = new string[jobPosition.Length - 1];
+            ReduceDossierInMiddle(ref fullName, index);
+            ReduceDossierInMiddle(ref jobPosition, index);
 
-            for (int i = 0; i < index - 1; i++)
-            {
-                tempFullName[i] = fullName[i];
-                tempJobPosition[i] = jobPosition[i];
-            }
-
-            for (int i = index; i < fullName.Length; i++)
-            {
-                tempFullName[i - 1] = fullName[i];
-                tempJobPosition[i - 1] = jobPosition[i];
-            }
-
-            fullName = tempFullName;
-            jobPosition = tempJobPosition;
-
-            Console.WriteLine("\nДосье номер " + index + " удалено.");
+            Console.WriteLine("\nДосье номер " + (index + 1) + " удалено.");
         }
 
         static void DeleteByLastName(ref string[] fullName, ref string[] jobPosition)
@@ -167,23 +149,8 @@ namespace CSLight52
             }
             else if (lastNameCounter == oneDossier)
             {
-                string[] temporaryFullName = new string[fullName.Length - 1];
-                string[] temporaryJobPosition = new string[jobPosition.Length - 1];
-
-                for (int j = 0; j < index; j++)
-                {
-                    temporaryFullName[j] = fullName[j];
-                    temporaryJobPosition[j] = jobPosition[j];
-                }
-
-                for (int j = index + 1; j < fullName.Length; j++)
-                {
-                    temporaryFullName[j - 1] = fullName[j];
-                    temporaryJobPosition[j - 1] = jobPosition[j];
-                }
-
-                fullName = temporaryFullName;
-                jobPosition = temporaryJobPosition;
+                ReduceDossierInMiddle(ref fullName, index);
+                ReduceDossierInMiddle(ref jobPosition, index);
 
                 Console.WriteLine("\nДосье удалено.");
             }
@@ -193,28 +160,43 @@ namespace CSLight52
             }
         }
 
+        static void ReduceDossierInMiddle (ref string[] dossierArray, int index)
+        {
+            string[] tempDossierArray = new string[dossierArray.Length - 1];
+
+            for (int j = 0; j < index; j++)
+            {
+                tempDossierArray[j] = dossierArray[j];
+            }
+
+            for (int j = index + 1; j < dossierArray.Length; j++)
+            {
+                tempDossierArray[j - 1] = dossierArray[j];
+            }
+
+            dossierArray = tempDossierArray;
+        }
+
         static void DeleteRecent(ref string[] fullName, ref string[] jobPosition)
         {
-            string[] tempFullName = new string[fullName.Length - 1];
-            string[] tempJobPosition = new string[jobPosition.Length - 1];
-
             Console.WriteLine((fullName.Length) + ". " + fullName[fullName.Length - 1] + " - " + jobPosition[jobPosition.Length - 1]);
 
-            for (int i = 0; i < tempFullName.Length; i++)
-            {
-                tempFullName[i] = fullName[i];
-            }
-
-            fullName = tempFullName;
-
-            for (int i = 0; i < tempFullName.Length; i++)
-            {
-                tempJobPosition[i] = jobPosition[i];
-            }
-
-            jobPosition = tempJobPosition;
+            ReduceDossier(ref fullName);
+            ReduceDossier(ref jobPosition);
 
             Console.WriteLine("\nПоследнее досье удалено.");
+        }
+
+        static void ReduceDossier(ref string[] dossierArray)
+        {
+            string[] tempDossierArray = new string[dossierArray.Length - 1];
+
+            for (int i = 0; i < tempDossierArray.Length; i++)
+            {
+                tempDossierArray[i] = dossierArray[i];
+            }
+
+            dossierArray = tempDossierArray;
         }
 
         static void FindByLastName(string[] fullName, string[] jobPosition)
