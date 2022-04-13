@@ -6,14 +6,14 @@ namespace CSLight53
     {
         static void Main(string[] args)
         {
-            int healthValue = 8;
-            int healthMaxValue = 10;
+            int healthValue = 80;
+            int healthMaxValue = 100;
             int healthPositionX = 2;
             int healthPositionY = 2;
             char healthSymbol = '&';
 
-            int manaValue = 4;
-            int manaMaxValue = 10;
+            int manaValue = 23257;
+            int manaMaxValue = 100000;
             int manaPositionX = 2;
             int manaPositionY = 3;
             char manaSymbol = '#';
@@ -30,18 +30,21 @@ namespace CSLight53
             
             Console.Write("[");
 
-            for (int i = 0; i < value; i++)
+            int barLength = 10;
+            int decimalValue = value * barLength / maxValue;
+
+            for (int i = 0; i < decimalValue; i++)
             {
                 Console.Write(symbol);
             }
 
-            for (int i = value; i < maxValue; i++)
+            for (int i = decimalValue; i < barLength; i++)
             {
                 Console.Write("_");
             }
 
             Console.Write("]");
-            Console.Write($"\t{value}0%");
+            Console.Write($"\t{value}%/{maxValue}%");
         }
     }
 }
