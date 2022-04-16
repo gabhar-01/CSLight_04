@@ -6,26 +6,25 @@ namespace CSLight54
     {
         static void Main(string[] args)
         {
-            string userInput;
+            TryToInt();
+        }
+
+        static string RequestNumber ()
+        {
+            Console.Write("Введите строку для конвертации в число: ");
+            return Console.ReadLine();
+        }
+
+        static void TryToInt ()
+        {
             int numResult;
             bool isCorrect;
 
-            ConvertToInt(out userInput, out numResult, out isCorrect);
-        }
-
-        static void RequestNumber (out string userInput)
-        {
-            Console.Write("Введите строку для конвертации в число: ");
-            userInput = Console.ReadLine();
-        }
-
-        static void ConvertToInt (out string userInput, out int numResult, out bool isCorrect)
-        {
             bool isRunning = true;
 
             while (isRunning)
             {
-                RequestNumber(out userInput);
+                string userInput = RequestNumber();
                
                 isCorrect = int.TryParse(userInput, out numResult);
 
