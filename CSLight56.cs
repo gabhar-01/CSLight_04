@@ -8,34 +8,34 @@ namespace CSLight56
         {
             int[] array = new int[10];
           
-            FillArray(ref array);
-            WriteArray(array);
+            Fill(array);
+            Write(array);
 
-            Shuffle(ref array);
+            Shuffle(array);
 
-            WriteArray(array);
+            Write(array);
 
             Console.ReadKey();
         }
 
-        static void Shuffle (ref int[] array)
+        static void Shuffle (int[] array)
         {
-            int randomElementToShuffle;
-            int temp;
+            int randomIndex;
+            int temporaryElement;
 
             Random random = new Random();
 
             for (int i = 0; i < array.Length; i++)
             {
-                randomElementToShuffle = random.Next(0, array.Length);
+                randomIndex = random.Next(0, array.Length);
 
-                temp = array[randomElementToShuffle];
-                array[randomElementToShuffle] = array[i];
-                array[i] = temp;
+                temporaryElement = array[randomIndex];
+                array[randomIndex] = array[i];
+                array[i] = temporaryElement;
             }
         }
 
-        static void FillArray (ref int[] array)
+        static void Fill (int[] array)
         {
             Random random = new Random();
 
@@ -45,7 +45,7 @@ namespace CSLight56
             }
         }
 
-        static void WriteArray (int[] array)
+        static void Write (int[] array)
         {
             for (int i = 0; i < array.Length; i++)
             {
