@@ -6,7 +6,10 @@ namespace CSLight54
     {
         static void Main(string[] args)
         {
-            CheckUserInputForConverting();
+            Console.WriteLine("Конвертированное число: " + ReadIntNumber());
+            
+            Console.ReadKey();
+            Console.Clear();
         }
 
         static string ReadUserInput ()
@@ -15,28 +18,24 @@ namespace CSLight54
             return Console.ReadLine();
         }
 
-        static void CheckUserInputForConverting()
+        static int ReadIntNumber()
         {
-            int numResult;
+            int numberResult;
             bool isCorrect;
 
             bool isRunning = true;
 
             while (isRunning)
-            {
-                string userInput = ReadUserInput();
-               
-                isCorrect = int.TryParse(userInput, out numResult);
+            {               
+                isCorrect = int.TryParse(ReadUserInput(), out numberResult);
 
                 if (isCorrect)
                 {
-                    Console.WriteLine("Число конвертировано корректно: " + numResult);
                     isRunning = false;
                 }
-
-                Console.ReadKey();
-                Console.Clear();
             }
+
+            return numberResult;
         }
     }
 }
