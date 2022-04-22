@@ -9,10 +9,8 @@ namespace CSLight55
             int userPositionY = 1;
             int userPositionX = 1;
 
-            int userPositionDY = userPositionY;
-            int userPositionDX = userPositionX;
-
-            bool isThereNoWall;
+            int userNextPositionY = userPositionY;
+            int userNextPositionX = userPositionX;
 
             char[,] map =
             {
@@ -41,9 +39,8 @@ namespace CSLight55
                 DrawMap(map);
                 DrawUser(userPositionY, userPositionX);
 
-                GetDirection(map, ref userPositionDY, ref userPositionDX);
-                CheckUpTheWall(map, userPositionDY, userPositionDX, out  isThereNoWall);
-                Move(map, ref userPositionDY, ref userPositionDX, ref userPositionY, ref userPositionX, isThereNoWall);
+                GetNextPosition(map, out userNextPositionY, out userNextPositionX);
+                Move(map, ref userNextPositionY, ref userNextPositionX, ref userPositionY, ref userPositionX, isThereNoWall(map, userNextPositionY, userNextPositionX));
 
                 Console.Clear();
             }
@@ -71,52 +68,52 @@ namespace CSLight55
             Console.Write(userImage);
         }
 
-        static void GetDirection(char[,] map, ref int userPositionDY, ref int userPositionDX)
+        static void GetNextPosition(char[,] map, out int userNextPositionY, out int userNextPositionX)
         {
             ConsoleKeyInfo positionInfo = Console.ReadKey();
 
             switch (positionInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    userPositionDX--;
+                    userNextPositionX--;
                     break;
                 case ConsoleKey.DownArrow:
-                    userPositionDX++;
+                    userNextPositionX++;
                     break;
                 case ConsoleKey.LeftArrow:
-                    userPositionDY--;
+                    userNextPositionY--;
                     break;
                 case ConsoleKey.RightArrow:
-                    userPositionDY++;
+                    userNextPositionY++;
                     break;
             }
         }
 
-        static void CheckUpTheWall(char[,] map, int userPositionDY, int userPositionDX, out bool isThereNoWall)
+        static bool isThereNoWall(char[,] map, int userNextPositionY, int userNextPositionX)
         {
             char wallImage = '#';
 
-            if (map[userPositionDX, userPositionDY] != wallImage)
+            if (map[userNextPositionX, userNextPositionY] != wallImage)
             {
-                isThereNoWall = true;
+                return true;
             }
             else
             {
-                isThereNoWall = false;
+                return false;
             }
         }
 
-        static void Move(char[,] map, ref int userPositionDY, ref int userPositionDX, ref int userPositionY, ref int userPositionX, bool isThereNoWall)
+        static void Move(char[,] map, ref int userNextPositionY, ref int userNextPositionX, ref int userPositionY, ref int userPositionX, bool isThereNoWall)
         {
             if (isThereNoWall)
             {
-                userPositionY = userPositionDY;
-                userPositionX = userPositionDX;
+                userPositionY = userNextPositionY;
+                userPositionX = userNextPositionX;
             }
             else
             {
-                userPositionDY = userPositionY;
-                userPositionDX = userPositionX;
+                userNextPositionY = userPositionY;
+                userNextPositionX = userPositionX;
             }
         }
     }
