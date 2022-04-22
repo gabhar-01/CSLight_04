@@ -36,10 +36,13 @@ namespace CSLight55
 
             while (isRunning)
             {
+                userNextPositionY = userPositionY;
+                userNextPositionX = userPositionX;
+
                 DrawMap(map);
                 DrawUser(userPositionY, userPositionX);
 
-                GetNextPosition(map, out userNextPositionY, out userNextPositionX);
+                GetNextPosition(map, ref userNextPositionY, ref userNextPositionX);
                 Move(map, ref userNextPositionY, ref userNextPositionX, ref userPositionY, ref userPositionX, isThereNoWall(map, userNextPositionY, userNextPositionX));
 
                 Console.Clear();
@@ -68,7 +71,7 @@ namespace CSLight55
             Console.Write(userImage);
         }
 
-        static void GetNextPosition(char[,] map, out int userNextPositionY, out int userNextPositionX)
+        static void GetNextPosition(char[,] map, ref int userNextPositionY, ref int userNextPositionX)
         {
             ConsoleKeyInfo positionInfo = Console.ReadKey();
 
@@ -109,11 +112,6 @@ namespace CSLight55
             {
                 userPositionY = userNextPositionY;
                 userPositionX = userNextPositionX;
-            }
-            else
-            {
-                userNextPositionY = userPositionY;
-                userNextPositionX = userPositionX;
             }
         }
     }
