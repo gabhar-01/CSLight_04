@@ -43,7 +43,9 @@ namespace CSLight55
                 DrawUser(userPositionY, userPositionX);
 
                 GetNextPosition(map, ref userNextPositionY, ref userNextPositionX);
-                Move(map, ref userNextPositionY, ref userNextPositionX, ref userPositionY, ref userPositionX, IsThereNoWall(map, userNextPositionY, userNextPositionX));
+
+                bool isThereNoWall = IsThereNoWall(map, userNextPositionY, userNextPositionX);
+                Move(map, userNextPositionY, userNextPositionX, ref userPositionY, ref userPositionX, isThereNoWall);
 
                 Console.Clear();
             }
@@ -106,7 +108,7 @@ namespace CSLight55
             }
         }
 
-        static void Move(char[,] map, ref int userNextPositionY, ref int userNextPositionX, ref int userPositionY, ref int userPositionX, bool isThereNoWall)
+        static void Move(char[,] map, int userNextPositionY, int userNextPositionX, ref int userPositionY, ref int userPositionX, bool isThereNoWall)
         {
             if (isThereNoWall)
             {
